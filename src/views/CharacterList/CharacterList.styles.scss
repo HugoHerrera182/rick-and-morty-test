@@ -1,0 +1,26 @@
+.CharacterList {
+	max-width: 100%;
+	padding: 10px 10px;
+  overflow-x: hidden;
+
+	&__filter {
+		align-items: center;
+		display: flex;
+
+		label {
+			font-size: medium;
+		}
+
+		input {
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			margin: 8px 6px;
+			padding: 8px 5px;
+			width: 30%;
+		}
+	}
+
+	&__table {
+		width: 100%;
+	}
+}
