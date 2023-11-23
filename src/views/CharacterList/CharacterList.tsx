@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { navigationRoutes } from '../../navigation';
 import { apiRoutes } from '../../api';
 import type { CharacterType, InfoResponseType } from '../../types';
 import { Table } from '../../components';
+import { useCharacter } from '../../hooks';
 import './CharacterList.styles.scss';
 
 const CharacterList = () => {
@@ -15,6 +16,8 @@ const CharacterList = () => {
   const [filterValue, setFilterValue] = useState<string>('');
   const tableHeader = ['Name', 'Status', 'Species', 'Location'];
   const params = useParams();
+  const { setCharacter} = useCharacter();
+  const navigate = useNavigate();
 
   const getData = (name?: string) => {
     let url = apiRoutes.GET_CHARACTERS.replace(':page', String(params.page));
@@ -32,9 +35,8 @@ const CharacterList = () => {
   }
 
   useEffect(() => {
-    console.log('params--', params);
     setIsloading(true);
-    if (params && params.page) {
+    if (params?.page) {
       getData(filterValue);
     } else {
       navigate(navigationRoutes.characterList.replace(':page', '1'));
@@ -45,15 +47,15 @@ const CharacterList = () => {
     navigate(navigationRoutes.characterList.replace(':page', newPage));
   }
 
-  const navigate = useNavigate();
-  const handleOnDetailSpace = (id: string) => {
-    navigate(navigationRoutes.characterDetail.replace(':spaceId', id));
-  };
+  const handleTableClick = (character: CharacterType) => {
+    setCharacter(character);
+    navigate(navigationRoutes.characterDetail);
+  }
 
   const tableContentMarkup = () => {
     return <tbody>
       {tableData?.map((character: CharacterType, i:number) => (
-        <tr key={`${character.name}-${i}`}>
+        <tr key={`${character.name}-${i}`} onClick={() => handleTableClick(character)}>
           <td>{character.name}</td>
           <td>{character.status}</td>
           <td>{character.species}</td>

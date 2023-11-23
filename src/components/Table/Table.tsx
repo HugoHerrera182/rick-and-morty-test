@@ -13,9 +13,6 @@ const Table = ({
   onClickPrevious,
 }: TableProps) => {
 
-
-  console.log('actualPage--', actualPage);
-
   const handleSelectChange = (event: React.FormEvent<HTMLSelectElement>) => {
     if (onSelectPageChange) {
       onSelectPageChange(event.currentTarget.value);
