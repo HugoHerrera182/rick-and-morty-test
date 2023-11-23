@@ -1,12 +1,12 @@
 export interface TableProps {
-  tableHeader: string[];
-  children: React.ReactNode;
-  totalPages?: number;
   actualPage?: number;
+  children: React.ReactNode;
   hasNext?: boolean;
   hasPrevious?: boolean;
   isLoading?: boolean;
   onSelectPageChange?: (value: string) => void;
   onClickNext?: () => void;
   onClickPrevious?: () => void;
+  tableHeader: string[];
+  totalPages?: number;
 }

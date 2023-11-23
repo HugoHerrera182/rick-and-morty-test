@@ -9,6 +9,7 @@ const RootRouter = () => (
 		<Route path={navigationRoutes.characterList} element={<CharacterList />} />
 		<Route path={navigationRoutes.characterDetail} element={<CharacterDetail />} />
 		<Route path='/' element={<CharacterList />} />
+		<Route path='/list' element={<CharacterList />} />
 	</Routes>
 );
 
