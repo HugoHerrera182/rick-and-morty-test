@@ -1,27 +1,70 @@
 .CharacterList {
-	max-width: 100%;
-	padding: 10px 10px;
+  max-width: 100%;
+  padding: 10px 10px;
   overflow-x: hidden;
 
-	&__filter {
-		align-items: center;
-		display: flex;
+  &__filter {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 
-		label {
-			font-size: medium;
-		}
+    &__input {
+      width: 50%;
+    }
 
-		input {
-			border: 1px solid #ccc;
-			border-radius: 8px;
-			font-size: medium;
-			margin: 8px 6px;
-			padding: 8px 5px;
-			width: 30%;
-		}
-	}
+    @media only screen and (max-width: 800px) {
+      &__input {
+        width: 80%;
+      }
+    }
 
-	&__table {
-		width: 100%;
-	}
+    label {
+      font-size: medium;
+    }
+
+    input {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: medium;
+      margin: 8px 6px;
+      padding: 8px 5px;
+      width: 50%;
+    }
+
+    button {
+      background-color: #f1efef;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: medium;
+      justify-content: center;
+      padding: 8px 4px;
+      width: 100px;
+    }
+
+		button:hover {
+      background-color: #149c6a;
+    }
+
+    @media only screen and (max-width: 800px) {
+      button {
+        font-size: small;
+        padding: 4px 4px;
+        width: 100%;
+      }
+
+      input {
+        font-size: small;
+        padding: 4px 5px;
+        width: 50%;
+      }
+
+			label {
+				font-size: small;
+			}
+    }
+  }
+
+  &__table {
+    width: 100%;
+  }
 }

@@ -3,6 +3,20 @@
   padding: 10px 10px;
   overflow-x: hidden;
 
+  button {
+    background-color: #f1efef;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: medium;
+    justify-content: center;
+    padding: 8px 4px;
+    width: 100px;
+  }
+
+  button:hover {
+    background-color: #149c6a;
+  }
+  
   &__container {
     display: flex;
     flex-wrap: wrap;
@@ -37,6 +51,5 @@
         height: auto;
       }
     }
-
   }
 }
