@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation guide
+
+To install this project you have to run insite de folder project the next command
+
+npm install
+
+The node version recomended you have to install is 16.14.0 or above
+
+The npm sersion recomended you have to install is 8.3.1 or above
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -16,7 +26,7 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
+Launches the test runner.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
@@ -38,6 +48,16 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Next improvements
+
+There is a 'isLoading' prop in Table and Divider component that has no functionality yet. I will add skeleton components to show them while services are loading.
+
+I will add Button component because it is used in all views.
+
+There are only two file test, I will add more test files.
+
+I will add utils files, CharacterList view has functions that can be in a diferent file.
 
 ## Learn More
 
