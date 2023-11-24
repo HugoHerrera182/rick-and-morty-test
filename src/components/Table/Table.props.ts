@@ -9,5 +9,5 @@ export interface TableProps {
   onClickPrevious?: () => void;
   tableHeader: string[];
   totalPages?: number;
-  showFilters?: boolean;
+  showPagination?: boolean;
 }
