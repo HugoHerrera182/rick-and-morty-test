@@ -2,12 +2,11 @@
   width: 100%;
 
   &__container {
-    height: 20px;
-    text-align: center;
-    margin: 10px 0 24px;
-    /* color */
-    color: #149c6a;
     border-bottom: 2px #149c6a solid;
+    color: #149c6a;
+    height: 20px;
+    margin: 10px 0 24px;
+    text-align: center;
   }
 
   &__title {

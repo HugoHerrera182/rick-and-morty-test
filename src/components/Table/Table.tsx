@@ -22,7 +22,8 @@ const Table = ({
   const selectMarkup = () => (
     <div className="Table__pagination__page-select">
       <label>Actual page</label>
-      <select name='selectPage' value={actualPage} onChange={handleSelectChange}>
+      <select name='selectPage' value={actualPage}
+        onChange={handleSelectChange}>
         {totalPages &&
           totalPages > 0 &&
           [...Array(totalPages)].map((val: string, i: number) => (
