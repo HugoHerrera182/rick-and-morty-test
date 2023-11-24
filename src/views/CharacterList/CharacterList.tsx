@@ -132,10 +132,14 @@ const CharacterList = () => {
   return (
     <div className="CharacterList">
       <div className="CharacterList__filter">
-        {!isTopFiveActive ? <div className="CharacterList__filter__input">
-          <label>Filer by name</label>
-          <input type="text" onChange={handleInputChange} />
-        </div> : <div/>}
+        {!isTopFiveActive ? (
+          <div className="CharacterList__filter__input">
+            <label>Filer by name</label>
+            <input type="text" onChange={handleInputChange} />
+          </div>
+        ) : (
+          <div />
+        )}
         <div>
           <button onClick={() => setIstopFiveActive(!isTopFiveActive)}>
             {isTopFiveActive ? "Show all" : "Show top 5"}
@@ -153,7 +157,7 @@ const CharacterList = () => {
           onSelectPageChange={onSelectPageChange}
           onClickNext={onClickNext}
           onClickPrevious={onClickPrevious}
-          showFilters={!isTopFiveActive}
+          showPagination={!isTopFiveActive}
         >
           {isTopFiveActive ? topFiceContentMArkup() : tableContentMarkup()}
         </Table>
