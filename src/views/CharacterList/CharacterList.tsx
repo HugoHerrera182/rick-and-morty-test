@@ -10,8 +10,8 @@ import './CharacterList.styles.scss';
 
 const CharacterList = () => {
 
-  const [tableData, setTableData] = useState<CharacterType[]>();
-  const [tableInfo, setTableInfo] = useState<InfoResponseType>();
+  const [tableData, setTableData] = useState<CharacterType[]>([]);
+  const [tableInfo, setTableInfo] = useState<InfoResponseType>({});
   const [isLoading, setIsloading] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>('');
   const [isTopFiveActive, setIstopFiveActive] = useState<boolean>(false);
@@ -32,6 +32,8 @@ const CharacterList = () => {
         }
       }).catch((error: AxiosError) => {
         console.warn(error.message);
+        setTableData([]);
+        setTableInfo({});
       });
   }
 
@@ -75,27 +77,19 @@ const CharacterList = () => {
     navigate(navigationRoutes.characterDetail);
   }
 
-  const tableContentMarkup = () => {
-    return <tbody>
-      {tableData?.map((character: CharacterType, i:number) => (
-        <tr key={`${character.name}-${i}`} onClick={() => handleTableClick(character)}>
-          <td>{character.name}</td>
-          <td>{character.status}</td>
-          <td>{character.species}</td>
-          <td>{character.location?.name}</td>
-        </tr>
-      ))}
+  const noDataToShowMarkup = () => (
+    <tbody>
+      <tr aria-rowspan={4}>
+        <td>There is not data to show</td>
+      </tr>
     </tbody>
-  }
+  );
 
-  const topFiceContentMArkup = () => {
-    const actualTopFive = JSON.parse(
-      localStorage.getItem("topFive") || "[]"
-    ) as CharacterType[];
-    return (
-      <tbody>
-        {actualTopFive &&
-          actualTopFive?.map((character: CharacterType, i: number) => (
+  const tableContentMarkup = () => (
+    <>
+      {tableData.length > 0 ? (
+        <tbody>
+          {tableData?.map((character: CharacterType, i: number) => (
             <tr
               key={`${character.name}-${i}`}
               onClick={() => handleTableClick(character)}
@@ -106,6 +100,33 @@ const CharacterList = () => {
               <td>{character.location?.name}</td>
             </tr>
           ))}
+        </tbody>
+      ) : (
+        noDataToShowMarkup()
+      )}
+    </>
+  );
+
+
+  const topFiveContentMarkup = () => {
+    const actualTopFive = JSON.parse(
+      localStorage.getItem("topFive") || "[]"
+    ) as CharacterType[];
+    return (
+      <tbody>
+        {actualTopFive.length > 0
+          ? actualTopFive?.map((character: CharacterType, i: number) => (
+              <tr
+                key={`${character.name}-${i}`}
+                onClick={() => handleTableClick(character)}
+              >
+                <td>{character.name}</td>
+                <td>{character.status}</td>
+                <td>{character.species}</td>
+                <td>{character.location?.name}</td>
+              </tr>
+            ))
+          : noDataToShowMarkup()}
       </tbody>
     );
   };
@@ -129,23 +150,27 @@ const CharacterList = () => {
     }
   }
 
+  const optionsListMarkup = () => (
+    <div className="CharacterList__filter">
+      {!isTopFiveActive ? (
+        <div className="CharacterList__filter__input">
+          <label>Filer by name</label>
+          <input type="text" onChange={handleInputChange} />
+        </div>
+      ) : (
+        <div />
+      )}
+      <div>
+        <button onClick={() => setIstopFiveActive(!isTopFiveActive)}>
+          {isTopFiveActive ? "Show all" : "Show top 5"}
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="CharacterList">
-      <div className="CharacterList__filter">
-        {!isTopFiveActive ? (
-          <div className="CharacterList__filter__input">
-            <label>Filer by name</label>
-            <input type="text" onChange={handleInputChange} />
-          </div>
-        ) : (
-          <div />
-        )}
-        <div>
-          <button onClick={() => setIstopFiveActive(!isTopFiveActive)}>
-            {isTopFiveActive ? "Show all" : "Show top 5"}
-          </button>
-        </div>
-      </div>
+      {optionsListMarkup()}
       <div className="CharacterList__table">
         <Table
           tableHeader={tableHeader}
@@ -159,7 +184,7 @@ const CharacterList = () => {
           onClickPrevious={onClickPrevious}
           showPagination={!isTopFiveActive}
         >
-          {isTopFiveActive ? topFiceContentMArkup() : tableContentMarkup()}
+          {isTopFiveActive ? topFiveContentMarkup() : tableContentMarkup()}
         </Table>
       </div>
     </div>
