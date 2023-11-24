@@ -5,5 +5,5 @@ export interface LocationType {
   dimension?: string;
   residents?: string[];
   url?: string;
-  created: string;
+  created?: string;
 }

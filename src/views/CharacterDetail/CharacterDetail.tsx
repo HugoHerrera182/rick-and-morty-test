@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { navigationRoutes } from '../../navigation';
 import { useCharacter } from '../../hooks';
 import { Divider } from '../../components';
@@ -13,6 +13,11 @@ const CharacterDetail = () => {
 	const navigate = useNavigate();
 	const [originData, setOriginData] = useState<LocationType>();
 	const [locationData, setLocationData] = useState<LocationType>();
+	const defaultLocation: LocationType = {
+    name: 'unknown',
+		type: 'unknown',
+		dimension: 'unknown',
+  };
 
 	const getLocation = (locationUrl: string, type: 'origin' | 'location') => {
 		axios.get(locationUrl)
@@ -24,8 +29,13 @@ const CharacterDetail = () => {
 						setOriginData(response.data as LocationType)
 					}
 				}
-			}).catch(error => {
-				// setError(error);
+			}).catch((error: AxiosError) => {
+				console.warn(error.message);
+				if (type === "location") {
+          setLocationData(defaultLocation);
+        } else {
+          setOriginData(defaultLocation);
+        }
 			});
 	}
 
@@ -48,7 +58,7 @@ const CharacterDetail = () => {
 	const personalInformationMarkup = () => {
 		return (<div className='CharacterDetail__container'>
 			<div className='CharacterDetail__section'>
-				<img src={character.image} />
+				<img alt={`${character.name}-img`} src={character.image} />
 			</div>
 			<div>
 				<div className='CharacterDetail__section'>
@@ -109,6 +119,10 @@ const CharacterDetail = () => {
 		</div>)
 	}
 
+	const handleOnClick = () => {
+		navigate(navigationRoutes.characterList.replace(":page", "1"));
+	}
+
 	return (<div className='CharacterDetail'>
 		<Divider title='Personal information'>
 			{personalInformationMarkup()}
@@ -119,6 +133,7 @@ const CharacterDetail = () => {
 		<Divider title='Location'>
 			{locationMarkup()}
 		</Divider>
+		<button onClick={handleOnClick}>Back to list</button>
 	</div>
 	);
 };
